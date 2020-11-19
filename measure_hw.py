@@ -22,8 +22,9 @@ def headLista(lista):
 for i in range(200):
     #Coluna da memória utilizada (em GB)
     a = dict(psutil.virtual_memory()._asdict())
-    print(a['used'])
-    usoMemoria.append(a['used']/1073741824)
+    value = (a['used']/a['total'])*100
+    print(value)
+    usoMemoria.append(value)
     
     #Coluna do percentual de CPU usado
     b = psutil.cpu_percent()
@@ -43,10 +44,10 @@ for i in range(200):
 tabela = pd.DataFrame()
 
 tabela.insert(0, "Tempo", tempoDecorrido)
-tabela.insert(1, "Memoria Utilizada (GB)", usoMemoria)
-tabela.insert(2, "Percentual Global de Processamento Utilizado", CPUUsage)
+tabela.insert(1, "Memoria Utilizada (%)", usoMemoria)
+tabela.insert(2, "Memoria Utilizada (%)", CPUUsage)
 
 
 
     
-tabela.to_csv("./desempenho_hw.csv")
+tabela.to_csv("./desempenho_hw_com_ruido.csv")
