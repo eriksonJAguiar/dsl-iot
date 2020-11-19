@@ -45,7 +45,7 @@ tabela = pd.DataFrame()
 
 tabela.insert(0, "Tempo", tempoDecorrido)
 tabela.insert(1, "Memoria Utilizada (%)", usoMemoria)
-tabela.insert(2, "Memoria Utilizada (%)", CPUUsage)
+tabela.insert(2, "CPU Utilizada (%)", CPUUsage)
 
 
 
