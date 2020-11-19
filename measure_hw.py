@@ -13,9 +13,11 @@ CPUUsage = []
 tempoDecorrido = []
 usoMemoria = []
 restAPI = []
+tempo = 0
 
 def headLista(lista):
     return lista[0]
+
 
 for i in range(600):
     #Coluna da memória utilizada (em GB)
