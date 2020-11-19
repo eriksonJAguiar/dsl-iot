@@ -19,7 +19,7 @@ def headLista(lista):
     return lista[0]
 
 
-for i in range(600):
+for i in range(200):
     #Coluna da memória utilizada (em GB)
     a = dict(psutil.virtual_memory()._asdict())
     print(a['used'])
