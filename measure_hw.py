@@ -6,8 +6,6 @@ import time
 import pandas as pd
 import os
 
-#Diretório certo
-#os.chdir('/home/grupo_jo/Downloads/codigo_tcc_fernando_final-20201119T152734Z-001/codigo_tcc_fernando_final')
 
 CPUUsage = []
 tempoDecorrido = []
@@ -50,4 +48,4 @@ tabela.insert(2, "CPU Utilizada (%)", CPUUsage)
 
 
     
-tabela.to_csv("./desempenho_hw_com_ruido.csv")
+tabela.to_csv("./desempenho_hw_sem_ruido.csv")
