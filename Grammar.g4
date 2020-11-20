@@ -19,7 +19,7 @@ set_list : pair ( ',' pair )* ;
 
 pair : function '(' attribute ')' ;
 
-function : 'AVG' | 'MEDIAN' ;
+function : 'AVG' | 'MEDIAN' | 'NO' ;
 
 from_list : relation;
 

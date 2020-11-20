@@ -80,10 +80,6 @@ class GrammarListener(ParseTreeListener):
     # Enter a parse tree produced by GrammarParser#pair.
     def enterPair(self, ctx:GrammarParser.PairContext):
         
-        # data_path = "base_rc.csv"
-        # var_names = ['respiration','timestamp']
-        #epsilon = arange(0.05, 1.0, 0.05)
-
         function = str(ctx.function().getText())
 
         output = open("output.txt","w")
@@ -100,6 +96,11 @@ class GrammarListener(ParseTreeListener):
 
         elif function == 'MEDIAN':
             output.write("Median >> "+str(priv.apply_privacy_median()))
+
+        elif function == 'NO':
+            data = pd.read_csv("base_rc.csv")[:5000]
+            original =  np.mean(data["respiration"])
+            output.write("Original Average >> "+str(original))
 
         else :
             print("Invalid function")

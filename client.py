@@ -17,7 +17,7 @@ stub = test_pb2_grpc.SenderStub(channel)
 
 #entry = input("Insert your query:\n")
 
-entry = "SELECT AVG(age) FROM table1 WHERE year = 2005"
+entry = "SELECT NO(age) FROM table1 WHERE year = 2005"
 
 aux = entry.split()[1]
 aux2 = aux.split("(")[0]

@@ -7,7 +7,7 @@ import time
 
 class Diff_priv():
 
-    def __init__(self, path, columns_name = ["respiration"], epsilon=[0.05, 0.01, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]):
+    def __init__(self, path, columns_name = ["respiration"], epsilon=[0.01]):
         self.__path = path
         self.__columns_name = columns_name
         self.__epsilon = epsilon
@@ -43,28 +43,27 @@ class Diff_priv():
     
 
     def apply_privacy_avg(self):
-        record = open("values.csv", "w+")
+        record = open("avg.csv", "w")
         record.write("epsilon,avg,avg_DP\n")
 
-        df = pd.read_csv(self.__path)[:5000]
-        l = int(len(df)/50)
-        for i in range(50):
-            data = df[i:(i+1)*l]
-            noise_data_by_ep = dict()
+        data = pd.read_csv(self.__path)[:5000]
+        
+        noise_data_by_ep = dict()
 
-            original =  np.mean(data["respiration"])
-            s = self.__sensitivity_avg(data["respiration"])
+        original =  np.mean(data["respiration"])
+        s = self.__sensitivity_avg(data["respiration"])
 
 
-            for e in self.__epsilon:
-                noise_data = dict()
-                noise_data["respiration"] = self.__laplaceMechanism(original, e, s)
-                noise_data_by_ep[str(e)] = noise_data
+        for e in self.__epsilon:
+            noise_data = dict()
+            noise_data["respiration"] = self.__laplaceMechanism(original, e, s)
+            noise_data_by_ep[str(e)] = noise_data
 
-                formatted_e = "{:.3f}".format(e)
-                record.write(str(formatted_e) + "," + str(original) + "," + str(noise_data["respiration"]) + "\n")
-            
+            formatted_e = "{:.3f}".format(e)
+            record.write(str(formatted_e) + "," + str(original) + "," + str(noise_data["respiration"]) + "\n")
+        
         record.close()
+
 
         return noise_data_by_ep
 
@@ -90,27 +89,24 @@ class Diff_priv():
 
     
     def apply_privacy_median(self):
-        record = open("values.csv", "a+")
-        #record.write("epsilon,median,median_DP\n")
+        record = open("median.csv", "w")
+        record.write("epsilon,median,median_DP\n")
 
-        df= pd.read_csv(self.__path)[:5000]
+        data = pd.read_csv(self.__path)[:5000]
         
-        l = int(len(df)/50)
-        for i in range(50):
-            data = df[i:(i+1)*l]
-            noise_data_by_ep = dict()
+        noise_data_by_ep = dict()
 
-            original = np.median(data["respiration"])
-            s = self.__sensitivity_avg(data["respiration"])
+        original = np.median(data["respiration"])
+        s = self.__sensitivity_avg(data["respiration"])
 
-            for e in self.__epsilon:
-                noise_data = dict()
-                noise_data["respiration"] = self.__laplaceMechanism(original, e, s)
-                noise_data_by_ep[str(e)] = noise_data
+        for e in self.__epsilon:
+            noise_data = dict()
+            noise_data["respiration"] = self.__laplaceMechanism(original, e, s)
+            noise_data_by_ep[str(e)] = noise_data
 
 
-                formatted_e = "{:.3f}".format(e)
-                record.write(str(formatted_e) + "," + str(original) + "," + str(noise_data["respiration"]) + "\n")
+            formatted_e = "{:.3f}".format(e)
+            record.write(str(formatted_e) + "," + str(original) + "," + str(noise_data["respiration"]) + "\n")
         
         record.close()
 

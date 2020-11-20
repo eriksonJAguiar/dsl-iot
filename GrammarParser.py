@@ -11,7 +11,7 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\17")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20")
         buf.write("i\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b")
         buf.write("\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t")
         buf.write("\16\4\17\t\17\4\20\t\20\3\2\3\2\3\2\3\2\3\2\3\2\5\2\'")
@@ -21,7 +21,7 @@ def serializedATN():
         buf.write("\7M\n\7\f\7\16\7P\13\7\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\n")
         buf.write("\3\n\3\13\3\13\3\13\3\13\3\f\3\f\3\r\3\r\3\16\3\16\3\17")
         buf.write("\3\17\3\20\3\20\3\20\2\2\21\2\4\6\b\n\f\16\20\22\24\26")
-        buf.write("\30\32\34\36\2\3\3\2\13\f\2]\2&\3\2\2\2\4(\3\2\2\2\6\62")
+        buf.write("\30\32\34\36\2\3\3\2\13\r\2]\2&\3\2\2\2\4(\3\2\2\2\6\62")
         buf.write("\3\2\2\2\b:\3\2\2\2\nB\3\2\2\2\fI\3\2\2\2\16Q\3\2\2\2")
         buf.write("\20V\3\2\2\2\22X\3\2\2\2\24Z\3\2\2\2\26^\3\2\2\2\30`\3")
         buf.write("\2\2\2\32b\3\2\2\2\34d\3\2\2\2\36f\3\2\2\2 !\5\n\6\2!")
@@ -38,9 +38,9 @@ def serializedATN():
         buf.write("NL\3\2\2\2NO\3\2\2\2O\r\3\2\2\2PN\3\2\2\2QR\5\20\t\2R")
         buf.write("S\7\4\2\2ST\5\34\17\2TU\7\5\2\2U\17\3\2\2\2VW\t\2\2\2")
         buf.write("W\21\3\2\2\2XY\5\36\20\2Y\23\3\2\2\2Z[\5\34\17\2[\\\7")
-        buf.write("\r\2\2\\]\7\17\2\2]\25\3\2\2\2^_\7\17\2\2_\27\3\2\2\2")
-        buf.write("`a\7\17\2\2a\31\3\2\2\2bc\7\17\2\2c\33\3\2\2\2de\7\17")
-        buf.write("\2\2e\35\3\2\2\2fg\7\17\2\2g\37\3\2\2\2\6&\67?N")
+        buf.write("\16\2\2\\]\7\20\2\2]\25\3\2\2\2^_\7\20\2\2_\27\3\2\2\2")
+        buf.write("`a\7\20\2\2a\31\3\2\2\2bc\7\20\2\2c\33\3\2\2\2de\7\20")
+        buf.write("\2\2e\35\3\2\2\2fg\7\20\2\2g\37\3\2\2\2\6&\67?N")
         return buf.getvalue()
 
 
@@ -56,12 +56,12 @@ class GrammarParser ( Parser ):
 
     literalNames = [ "<INVALID>", "'INSERT INTO'", "'('", "')'", "'VALUES'", 
                      "','", "'SELECT'", "'FROM'", "'WHERE'", "'AVG'", "'MEDIAN'", 
-                     "'='" ]
+                     "'NO'", "'='" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "WHITESPACE", "IDENTIFIER" ]
+                      "<INVALID>", "WHITESPACE", "IDENTIFIER" ]
 
     RULE_start = 0
     RULE_insert1 = 1
@@ -95,8 +95,9 @@ class GrammarParser ( Parser ):
     T__8=9
     T__9=10
     T__10=11
-    WHITESPACE=12
-    IDENTIFIER=13
+    T__11=12
+    WHITESPACE=13
+    IDENTIFIER=14
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -548,7 +549,7 @@ class GrammarParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 84
             _la = self._input.LA(1)
-            if not(_la==GrammarParser.T__8 or _la==GrammarParser.T__9):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << GrammarParser.T__8) | (1 << GrammarParser.T__9) | (1 << GrammarParser.T__10))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -639,7 +640,7 @@ class GrammarParser ( Parser ):
             self.state = 88
             self.attribute()
             self.state = 89
-            self.match(GrammarParser.T__10)
+            self.match(GrammarParser.T__11)
             self.state = 90
             self.match(GrammarParser.IDENTIFIER)
         except RecognitionException as re:
